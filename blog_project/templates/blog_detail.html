@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <h2>{{ blog.name }}</h2>
+            <span>Author: {{blog.author}}</span>
+            <div>
+                <small>{{blog.post_date}}</small>
+            </div>
+            
+            <div>
+               <p>{{blog.description|safe}}</p>
+            </div>
+
+           <div class="col">
+            <h3>Write your comment...</h3>
+            <form method="post">
+                {% csrf_token %}
+                {{form.as_p}}
+                <button type="submit" class="btn btn-outline-primary">Comment</button>
+            </form>
+        
+           </div>
+
+            <div>
+               
+                    <a class="btn btn-sm btn-info" href="{% url 'UpdateBlog' blog.id %}"><i class="fa-solid fa-pen-to-square"></i> Edit Blog</a>
+                    <a class="btn btn-sm btn-danger" href="{% url 'DeleteBlog' blog.id %}"> <i class="fa-solid fa-trash"></i> Delete Blog</a>
+                   
+            </div>
+           
+
+            
+           
+        </div>
+    </div>
+    <script>
+        var name="{{ user.id }}"
+        var blog="{{ blog.id }}"
+
+        document.getElementById("author").value=name;
+        document.getElementById("blog").value=blog;
+
+    </script>
+
+
+    {% endblock content %}
+
+
+                

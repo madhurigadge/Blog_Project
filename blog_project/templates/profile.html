@@ -1,0 +1,84 @@
+{% extends 'base.html'%}
+
+
+{% block content %}
+
+<div class="card border-success mb-3"">
+    <div class="card-header bg-transparent border-success fs-5">{{user.username}}'s Profile</div>
+    <div class="card-body">
+        {% if user.username %}
+      <p class="card-text">Username:{{user.username}}</p>
+      {% else %}
+
+      <div class="alert alert-warning" role="alert">
+        <b>Username</b> is not provided by user
+      </div>
+      
+      {% endif %}
+
+      {% if user.first_name %}
+      <p class="card-text">First Name:{{user.first_name}}</p>
+      {% else %}
+
+      <div class="alert alert-warning" role="alert">
+        <b>First Name</b> is not provided by user
+      </div>
+      {% endif %}
+
+      {% if user.last_name %}
+      <p class="card-text">Last Name:{{user.last_name}}</p>
+      {% else %}
+
+      <div class="alert alert-warning" role="alert">
+        <b>Last Name</b> is not provided by user
+      </div>
+      {% endif %}
+
+      {% if user.email %}
+      <p class="card-text">Email:{{user.email}}</p>
+      {% else %}
+
+        <div class="alert alert-warning" role="alert">
+        <b>Email</b> is not provided by user
+      </div>
+      {% endif %}
+
+
+    </div>
+    <div class="card-footer bg-transparent border-success">
+        <a class="btn btn-sm btn-danger" href="{% url 'DeleteUser' user.id %}"><i class="fa-solid fa-trash"></i>Delete Account</a>
+    </div>
+  </div>
+
+  <hr>
+  <h3>My Posts</h3>
+
+  {% for post_data in user_related_data %}
+  <div class="card">
+    
+    <div class="card-body">
+      <blockquote class="blockquote mb-0">
+        <div class="row">
+            <div class="col-md-6">
+                <p>{{post_data.name}}</p>
+            </div>
+
+            <div class="col-md-6">
+                <p class="text-end">{{post_data.post_date}}</p>
+            </div>
+        </div>
+    
+        <footer class="blockquote-footer">{{post_data.mini_description|truncatewords:50}}</footer>
+      </blockquote>
+    </div>
+    <div class="card-footer">
+        <a class="btn btn-sm btn-primary" href="{% url 'blog_detail' post_data.slug %}"><i class="fa-brands fa-readme"></i>Read Blog</a>
+        <a class="btn btn-sm btn-info" href="{% url 'UpdateBlog' post_data.id %}"><i class="fa-solid fa-pen-to-square"></i>Edit Blog</a>
+        <a class="btn btn-sm btn-danger" href="{% url 'DeleteBlog' post_data.id %}"><i class="fa-solid fa-trash"></i>Delete Blog</a>
+
+
+      </div>
+  </div>
+  {% endfor %}
+
+{% endblock content %}

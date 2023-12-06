@@ -1,0 +1,16 @@
+{% extends 'base.html'%}
+{% block content %}
+
+<form method="post">
+{% csrf_token %}
+{{ form.media }}
+{{form.as_p}}
+<button type="submit" class="btn btn-success">post blog</button>
+</form>
+
+<script>
+    var name = "{{ user.id }}"
+    document.getElementById("author").value = name;
+</script>
+
+{% endblock content %}
